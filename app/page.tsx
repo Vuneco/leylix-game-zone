@@ -170,9 +170,10 @@ useEffect(() => {
   const [sessions, setSessions] = useState(0);
   const [moves, setMoves] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-
+  const lastCelebratedHundredRef = useRef(0);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartRef = useRef({ x: 0, y: 0, active: false });
+  
 
   const wallpaperObject = useMemo(
     () => WALLPAPERS.find((w) => w.key === wallpaper) || WALLPAPERS[0],
@@ -274,6 +275,7 @@ useEffect(() => {
     setMoves(0);
     setGameOver(false);
     setRunning(false);
+    lastCelebratedHundredRef.current = 0;
   }
 
   function movePiece(direction: number) {
@@ -365,6 +367,23 @@ const spawned: Piece = {
 
     setBoard(clearedBoard);
     setScore(nextScore);
+    const previousHundred = Math.floor((score) / 100);
+const nextHundred = Math.floor(nextScore / 100);
+
+if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.current) {
+  lastCelebratedHundredRef.current = nextHundred;
+
+  const audio = new Audio("/sounds/celebration.mp3");
+audio.volume = 0.25;
+
+audio.play().catch(() => {});
+
+// ⬇️ NEU: nach 4 Sekunden stoppen
+setTimeout(() => {
+  audio.pause();
+  audio.currentTime = 0;
+}, 4000);
+}
     setLines(nextLines);
     setLevel(nextLevel);
     setBestScore((b) => Math.max(b, nextScore));
@@ -468,14 +487,7 @@ const spawned: Piece = {
               </p>
             </div>
 
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              <button onClick={running ? pauseGame : startGame} style={btnStyle}>
-                {running ? "Pause" : "Start"}
-              </button>
-              <button onClick={resetGame} style={btnSecondaryStyle}>
-                Reset
-              </button>
-            </div>
+            
           </div>
 
           <div
@@ -584,16 +596,45 @@ const spawned: Piece = {
 
             <div>
               <div style={panelStyle}>
-                <div style={{ marginBottom: "12px" }}>
+                
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "1fr 1.4fr",
+    gap: "10px",
+    marginBottom: "12px",
+  }}
+>
+  <button
+    onClick={resetGame}
+    style={{
+      background: "rgba(255,255,255,0.1)",
+      color: "white",
+      border: "1px solid rgba(255,255,255,0.1)",
+      padding: "14px",
+      borderRadius: "16px",
+      cursor: "pointer",
+      fontWeight: 700,
+      fontSize: "15px",
+    }}
+  >
+    Reset
+  </button>
+
   <button
     onClick={running ? pauseGame : startGame}
     style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "12px",
       width: "100%",
-      padding: "14px",
+      padding: "14px 16px",
       borderRadius: "16px",
       border: "none",
       fontWeight: 700,
-      fontSize: "16px",
+      fontSize: "15px",
       cursor: "pointer",
       background: running
         ? "linear-gradient(90deg, #ef4444, #f87171)"
@@ -601,7 +642,22 @@ const spawned: Piece = {
       color: "white",
     }}
   >
-    {running ? "Pause Game" : "Start Game"}
+    <span>{running ? "Pause" : "Start"}</span>
+
+    <span
+      style={{
+        minWidth: "64px",
+        textAlign: "center",
+        padding: "6px 10px",
+        borderRadius: "12px",
+        background: "rgba(255,255,255,0.18)",
+        border: "1px solid rgba(255,255,255,0.18)",
+        fontSize: "13px",
+        fontWeight: 700,
+      }}
+    >
+      {score} P
+    </span>
   </button>
 </div>
 
