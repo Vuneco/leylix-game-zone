@@ -454,7 +454,7 @@ const spawned: Piece = {
               >
                 Leylix Games
               </div>
-              <h1 style={{ margin: 0, fontSize: "30px" }}>Leylix Atomic Blocks</h1>
+              <h1 style={{ margin: 0, fontSize: "30px" }}>Leylix Games - Letris</h1>
               <p style={{ color: "rgba(255,255,255,0.72)" }}>
                 Letris-inspired prototype with wallpapers, ad slot and mobile controls.
               </p>
