@@ -584,29 +584,26 @@ const spawned: Piece = {
 
             <div>
               <div style={panelStyle}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "12px",
-                    alignItems: "center",
-                    marginBottom: "16px",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)" }}>
-                      Leylix branded playfield
-                    </div>
-                    <div style={{ fontWeight: 700, fontSize: "18px" }}>Atomic gameplay board</div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: "8px" }}>
-                    <button style={iconBtnStyle} onClick={() => movePiece(-1)}>◀</button>
-                    <button style={iconBtnStyle} onClick={rotatePiece}>⟳</button>
-                    <button style={iconBtnStyle} onClick={() => movePiece(1)}>▶</button>
-                  </div>
-                </div>
+                <div style={{ marginBottom: "12px" }}>
+  <button
+    onClick={running ? pauseGame : startGame}
+    style={{
+      width: "100%",
+      padding: "14px",
+      borderRadius: "16px",
+      border: "none",
+      fontWeight: 700,
+      fontSize: "16px",
+      cursor: "pointer",
+      background: running
+        ? "linear-gradient(90deg, #ef4444, #f87171)"
+        : "linear-gradient(90deg, #22c55e, #4ade80)",
+      color: "white",
+    }}
+  >
+    {running ? "Pause Game" : "Start Game"}
+  </button>
+</div>
 
                 <div
                   onTouchStart={onTouchStart}
