@@ -382,7 +382,7 @@ audio.play().catch(() => {});
 setTimeout(() => {
   audio.pause();
   audio.currentTime = 0;
-}, 4000);
+}, 8000);
 }
     setLines(nextLines);
     setLevel(nextLevel);
