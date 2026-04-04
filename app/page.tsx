@@ -152,6 +152,14 @@ function getColorById(id: number): string {
 export default function Page() {
   const [board, setBoard] = useState<number[][]>(createEmptyBoard());
   const [piece, setPiece] = useState<Piece | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const check = () => setIsMobile(window.innerWidth < 900);
+  check();
+  window.addEventListener("resize", check);
+  return () => window.removeEventListener("resize", check);
+}, []);
   const [nextPiece, setNextPiece] = useState<Piece | null>(null);
   const [running, setRunning] = useState(false);
   const [score, setScore] = useState(0);
@@ -419,7 +427,7 @@ const spawned: Piece = {
           margin: "0 auto",
           display: "grid",
           gap: "24px",
-          gridTemplateColumns: "1.2fr 0.8fr",
+          gridTemplateColumns: isMobile ? "1fr" : "1.2fr 0.8fr",
         }}
       >
         <section
@@ -474,7 +482,7 @@ const spawned: Piece = {
             style={{
               display: "grid",
               gap: "24px",
-              gridTemplateColumns: "280px 1fr",
+              gridTemplateColumns: isMobile ? "1fr" : "280px 1fr",
             }}
           >
             <div style={{ display: "grid", gap: "16px" }}>
