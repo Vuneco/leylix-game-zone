@@ -191,8 +191,8 @@ export default function Page() {
 }, [board, piece]);
 
   useEffect(() => {
-  const storedBest = Number(localStorage.getItem("leylix_tetris_best") || 0);
-  const storedSessions = Number(localStorage.getItem("leylix_tetris_sessions") || 0);
+  const storedBest = Number(localStorage.getItem("leylix_letris_best") || 0);
+  const storedSessions = Number(localStorage.getItem("leylix_letris_sessions") || 0);
   setBestScore(storedBest);
   setSessions(storedSessions);
   setPiece(randomPiece());
@@ -200,11 +200,11 @@ export default function Page() {
 }, []);
 
   useEffect(() => {
-    localStorage.setItem("leylix_tetris_best", String(bestScore));
+    localStorage.setItem("leylix_letris_best", String(bestScore));
   }, [bestScore]);
 
   useEffect(() => {
-    localStorage.setItem("leylix_tetris_sessions", String(sessions));
+    localStorage.setItem("leylix_letris_sessions", String(sessions));
   }, [sessions]);
 
   useEffect(() => {
@@ -452,11 +452,11 @@ const spawned: Piece = {
                   marginBottom: "10px",
                 }}
               >
-                Leylix Label
+                Leylix Games
               </div>
               <h1 style={{ margin: 0, fontSize: "30px" }}>Leylix Atomic Blocks</h1>
               <p style={{ color: "rgba(255,255,255,0.72)" }}>
-                Tetris-inspired prototype with wallpapers, ad slot and mobile controls.
+                Letris-inspired prototype with wallpapers, ad slot and mobile controls.
               </p>
             </div>
 
