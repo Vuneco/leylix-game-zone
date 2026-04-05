@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import type { SponsorItem } from "@/data/sponsorData/sponsors";
 
 type SponsorCardProps = {
@@ -7,6 +7,8 @@ type SponsorCardProps = {
 };
 
 export default function SponsorCard({ sponsor }: SponsorCardProps) {
+  const [isMuted, setIsMuted] = useState(true);
+
   return (
     <div
       style={{
@@ -20,22 +22,55 @@ export default function SponsorCard({ sponsor }: SponsorCardProps) {
       }}
     >
       <div
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "8px",
-          padding: "6px 10px",
-          borderRadius: "999px",
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          fontSize: "11px",
-          fontWeight: 700,
-          color: "rgba(255,255,255,0.9)",
-          marginBottom: "12px",
-        }}
-      >
-        {sponsor.label}
-      </div>
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "10px",
+    marginBottom: "12px",
+  }}
+>
+  <div
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "8px",
+      padding: "6px 10px",
+      borderRadius: "999px",
+      background: "rgba(255,255,255,0.08)",
+      border: "1px solid rgba(255,255,255,0.08)",
+      fontSize: "11px",
+      fontWeight: 700,
+      color: "rgba(255,255,255,0.9)",
+    }}
+  >
+    {sponsor.label}
+  </div>
+
+  {sponsor.website && (
+    <a
+      href={sponsor.website}
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "8px 12px",
+        borderRadius: "12px",
+        textDecoration: "none",
+        fontSize: "12px",
+        fontWeight: 700,
+        color: "white",
+        background: "linear-gradient(90deg, #6d28d9, #9333ea)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      Mehr erfahren
+    </a>
+  )}
+</div>
 
       <div
         style={{
@@ -96,75 +131,61 @@ export default function SponsorCard({ sponsor }: SponsorCardProps) {
       </div>
 
       <div
-        style={{
-          position: "relative",
-          width: "100%",
-          borderRadius: "18px",
-          overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.08)",
-          background: "rgba(0,0,0,0.25)",
-        }}
-      >
-        <video
-          src={sponsor.video}
-          poster={sponsor.poster}
-          muted
-          autoPlay
-          loop
-          playsInline
-          preload="metadata"
-          style={{
-            width: "100%",
-            height: "160px",
-            objectFit: "cover",
-            display: "block",
-            background: "black",
-          }}
-        />
-      </div>
+  style={{
+    position: "relative",
+    width: "100%",
+    borderRadius: "18px",
+    overflow: "hidden",
+    border: "1px solid rgba(255,255,255,0.08)",
+    background: "rgba(0,0,0,0.25)",
+  }}
+>
+  <video
+    src={sponsor.video}
+    poster={sponsor.poster}
+    muted={isMuted}
+    autoPlay
+    loop
+    playsInline
+    preload="metadata"
+    controls={false}
+    style={{
+      width: "100%",
+      height: "160px",
+      objectFit: "cover",
+      display: "block",
+      background: "black",
+    }}
+  />
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: sponsor.website ? "space-between" : "flex-end",
-          alignItems: "center",
-          gap: "10px",
-          marginTop: "12px",
-          flexWrap: "wrap",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "11px",
-            color: "rgba(255,255,255,0.55)",
-          }}
-        >
-          Sponsor Preview
-        </div>
-
-        {sponsor.website && (
-          <a
-            href={sponsor.website}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px 14px",
-              borderRadius: "14px",
-              textDecoration: "none",
-              fontSize: "12px",
-              fontWeight: 700,
-              color: "white",
-              background: "linear-gradient(90deg, #6d28d9, #9333ea)",
-              border: "1px solid rgba(255,255,255,0.08)",
-            }}
-          >
-            Mehr erfahren
-          </a>
-        )}
-      </div>
+  <button
+    type="button"
+    onClick={() => setIsMuted((prev) => !prev)}
+    style={{
+      position: "absolute",
+      top: "10px",
+      right: "10px",
+      width: "38px",
+      height: "38px",
+      borderRadius: "12px",
+      border: "1px solid rgba(255,255,255,0.16)",
+      background: "rgba(0,0,0,0.45)",
+      color: "white",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "16px",
+      fontWeight: 700,
+      backdropFilter: "blur(10px)",
+    }}
+    aria-label={isMuted ? "Ton einschalten" : "Ton ausschalten"}
+    title={isMuted ? "Ton einschalten" : "Ton ausschalten"}
+  >
+    {isMuted ? "🔇" : "🔊"}
+  </button>
+</div>
+      
     </div>
   );
 }
