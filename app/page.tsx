@@ -444,6 +444,29 @@ setTimeout(() => {
         fontFamily: "Arial, sans-serif",
       }}
     >
+      <style>
+  {`
+    @keyframes fadeInOverlay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes popInCard {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  `}
+</style>
       <div
         style={{
           maxWidth: "1200px",
@@ -502,7 +525,7 @@ setTimeout(() => {
             }}
           >
             <div style={{ display: "grid", gap: "16px" }}>
-              <div style={panelStyle}>
+              <div style={{ ...panelStyle, position: "relative", overflow: "hidden" }}>
                 <div style={statsGridStyle}>
                   <Stat label="Score" value={score} />
                   <Stat label="Best" value={bestScore} />
@@ -737,24 +760,134 @@ setTimeout(() => {
                   <Tag text="Sponsor Ready" />
                   <Tag text="Analytics Ready" />
                 </div>
-              </div>
+                {gameOver && (
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      background: "rgba(3, 8, 20, 0.72)",
+      backdropFilter: "blur(10px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "20px",
+      zIndex: 20,
+      animation: "fadeInOverlay 0.25s ease",
+    }}
+  >
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "360px",
+        borderRadius: "28px",
+        padding: "24px",
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05))",
+        border: "1px solid rgba(255,255,255,0.10)",
+        boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
+        textAlign: "center",
+        animation: "popInCard 0.28s ease",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "8px 14px",
+          borderRadius: "999px",
+          background: "rgba(255,255,255,0.08)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          fontSize: "12px",
+          fontWeight: 700,
+          marginBottom: "14px",
+        }}
+      >
+        Leylix Games
+      </div>
 
-              {gameOver && (
-                <div
-                  style={{
-                    marginTop: "16px",
-                    borderRadius: "24px",
-                    padding: "16px",
-                    background: "rgba(244,63,94,0.12)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <div style={{ fontWeight: 700 }}>Game Over</div>
-                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: "4px" }}>
-                    Reset and start again for another test session.
-                  </div>
-                </div>
-              )}
+      <div
+        style={{
+          fontSize: "28px",
+          fontWeight: 800,
+          lineHeight: 1.1,
+          color: "white",
+        }}
+      >
+        Game Over
+      </div>
+
+      <div
+        style={{
+          marginTop: "10px",
+          color: "rgba(255,255,255,0.75)",
+          fontSize: "14px",
+          lineHeight: 1.6,
+        }}
+      >
+        Keine weiteren Elemente mehr möglich. Starte eine neue Runde und versuche einen noch höheren Score zu holen.
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+          marginTop: "18px",
+          textAlign: "left",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: "18px",
+            background: "rgba(0,0,0,0.18)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "12px",
+          }}
+        >
+          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Score</div>
+          <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{score}</div>
+        </div>
+
+        <div
+          style={{
+            borderRadius: "18px",
+            background: "rgba(0,0,0,0.18)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "12px",
+          }}
+        >
+          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Best</div>
+          <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{bestScore}</div>
+        </div>
+      </div>
+
+      <button
+        onClick={resetGame}
+        style={{
+          marginTop: "18px",
+          width: "100%",
+          padding: "14px",
+          borderRadius: "18px",
+          border: "none",
+          cursor: "pointer",
+          fontWeight: 800,
+          fontSize: "15px",
+          color: "white",
+          background: "linear-gradient(90deg, #7c3aed, #9333ea)",
+          boxShadow: "0 12px 30px rgba(124,58,237,0.28)",
+        }}
+      >
+        Neustart
+      </button>
+    </div>
+  </div>
+)}             
+
+              </div>
+              
+
+              
             </div>
           </div>
         </section>
