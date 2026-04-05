@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { SponsorItem } from "@/data/sponsorData/sponsors";
 
 type SponsorCardProps = {
@@ -8,6 +8,27 @@ type SponsorCardProps = {
 
 export default function SponsorCard({ sponsor }: SponsorCardProps) {
   const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+  const video = videoRef.current;
+  if (!video) return;
+
+  const tryPlay = () => {
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  };
+
+  tryPlay();
+
+  const interval = setInterval(() => {
+    if (video.paused) {
+      tryPlay();
+    }
+  }, 2000); // alle 2 Sekunden prüfen
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <div
@@ -141,6 +162,7 @@ export default function SponsorCard({ sponsor }: SponsorCardProps) {
   }}
 >
   <video
+    ref={videoRef}
     src={sponsor.video}
     poster={sponsor.poster}
     muted={isMuted}
