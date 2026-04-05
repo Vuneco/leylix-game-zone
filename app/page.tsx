@@ -919,6 +919,68 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
                 textAlign: "left",
               }}
             >
+              {/* 🔥 EVENT CARD */}
+<div
+  style={{
+    marginTop: "18px",
+    borderRadius: "22px",
+    overflow: "hidden",
+    border: "1px solid rgba(255,255,255,0.10)",
+    background: "rgba(0,0,0,0.25)",
+    boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
+  }}
+>
+  {/* IMAGE */}
+  <div
+    style={{
+      width: "100%",
+      height: "140px",
+      backgroundImage: "url('/sponsors/sponsor-1/poster.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+  />
+
+  {/* CONTENT */}
+  <div style={{ padding: "14px" }}>
+    <div
+      style={{
+        fontSize: "16px",
+        fontWeight: 800,
+        color: "white",
+      }}
+    >
+      Fight Night Euskirchen
+    </div>
+
+    <div
+      style={{
+        marginTop: "6px",
+        fontSize: "13px",
+        color: "rgba(255,255,255,0.7)",
+      }}
+    >
+      24. Juni • Euskirchen
+    </div>
+
+    <button
+      style={{
+        marginTop: "10px",
+        width: "100%",
+        padding: "10px",
+        borderRadius: "14px",
+        border: "none",
+        cursor: "pointer",
+        fontWeight: 700,
+        fontSize: "13px",
+        color: "white",
+        background: "linear-gradient(90deg, #f59e0b, #f97316)",
+      }}
+    >
+      Event ansehen
+    </button>
+  </div>
+</div>
               <div
                 style={{
                   borderRadius: "18px",
