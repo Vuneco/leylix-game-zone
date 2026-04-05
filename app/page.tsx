@@ -910,16 +910,51 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
               Keine weiteren Elemente mehr möglich. Möchtest du direkt neu starten oder später weitermachen?
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "10px",
-                marginTop: "18px",
-                textAlign: "left",
-              }}
-            >
-              {/* 🔥 EVENT CARD */}
+            {/* SCORE + BEST */}
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "10px",
+    marginTop: "18px",
+  }}
+>
+  <div
+    style={{
+      borderRadius: "18px",
+      background: "rgba(0,0,0,0.18)",
+      border: "1px solid rgba(255,255,255,0.08)",
+      padding: "12px",
+      textAlign: "left",
+    }}
+  >
+    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>
+      Score
+    </div>
+    <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>
+      {score}
+    </div>
+  </div>
+
+  <div
+    style={{
+      borderRadius: "18px",
+      background: "rgba(0,0,0,0.18)",
+      border: "1px solid rgba(255,255,255,0.08)",
+      padding: "12px",
+      textAlign: "left",
+    }}
+  >
+    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>
+      Best
+    </div>
+    <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>
+      {bestScore}
+    </div>
+  </div>
+</div>
+
+{/* EVENT CARD */}
 <div
   style={{
     marginTop: "18px",
@@ -928,9 +963,9 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
     border: "1px solid rgba(255,255,255,0.10)",
     background: "rgba(0,0,0,0.25)",
     boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
+    textAlign: "left",
   }}
 >
-  {/* IMAGE */}
   <div
     style={{
       width: "100%",
@@ -941,15 +976,8 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
     }}
   />
 
-  {/* CONTENT */}
   <div style={{ padding: "14px" }}>
-    <div
-      style={{
-        fontSize: "16px",
-        fontWeight: 800,
-        color: "white",
-      }}
-    >
+    <div style={{ fontSize: "16px", fontWeight: 800 }}>
       Fight Night Euskirchen
     </div>
 
@@ -981,30 +1009,6 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
     </button>
   </div>
 </div>
-              <div
-                style={{
-                  borderRadius: "18px",
-                  background: "rgba(0,0,0,0.18)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  padding: "12px",
-                }}
-              >
-                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Score</div>
-                <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{score}</div>
-              </div>
-
-              <div
-                style={{
-                  borderRadius: "18px",
-                  background: "rgba(0,0,0,0.18)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  padding: "12px",
-                }}
-              >
-                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Best</div>
-                <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{bestScore}</div>
-              </div>
-            </div>
 
             <div
               style={{
