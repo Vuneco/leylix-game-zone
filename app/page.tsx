@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import SponsorCard from "@/app/components/SponsorCard";
+import { sponsors } from "@/data/sponsorData/sponsors";
 
 const COLS = 10;
 const ROWS = 20;
@@ -179,7 +181,9 @@ useEffect(() => {
     () => WALLPAPERS.find((w) => w.key === wallpaper) || WALLPAPERS[0],
     [wallpaper]
   );
-
+  
+  const activeSponsors = sponsors.filter((item) => item.isActive);
+  const currentSponsor = activeSponsors[0] || null;
   const visibleBoard = useMemo(() => {
   const temp = board.map((row) => [...row]);
 
@@ -591,6 +595,7 @@ setTimeout(() => {
                     }}
                   />
                 </div>
+                {currentSponsor && <SponsorCard sponsor={currentSponsor} />}
               </div>
             </div>
 
