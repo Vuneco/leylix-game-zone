@@ -12,8 +12,8 @@ export type SponsorItem = {
 export const sponsors: SponsorItem[] = [
   {
     id: "sponsor-1",
-    name: "Sponsor Name 1",
-    label: "Leylix Sponsor",
+    name: "Leylix Events",
+    label: "Leylix",
     logo: "/sponsors/sponsor-1/logo.png",
     video: "/sponsors/sponsor-1/preview.mp4",
     poster: "/sponsors/sponsor-1/poster.jpg",
