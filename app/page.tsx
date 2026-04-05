@@ -617,11 +617,11 @@ setTimeout(() => {
       background: "rgba(255,255,255,0.1)",
       color: "white",
       border: "1px solid rgba(255,255,255,0.1)",
-      padding: "10px",
+      padding: "6px",
       borderRadius: "16px",
       cursor: "pointer",
       fontWeight: 700,
-      fontSize: "14px",
+      fontSize: "10px",
     }}
   >
     Reset
@@ -635,11 +635,11 @@ setTimeout(() => {
       justifyContent: "space-between",
       gap: "12px",
       width: "100%",
-      padding: "10px 14px",
+      padding: "6px 10px",
       borderRadius: "16px",
       border: "none",
       fontWeight: 700,
-      fontSize: "14px",
+      fontSize: "10px",
       cursor: "pointer",
       background: running
         ? "linear-gradient(90deg, #ef4444, #f87171)"
