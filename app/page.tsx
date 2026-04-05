@@ -617,11 +617,11 @@ setTimeout(() => {
       background: "rgba(255,255,255,0.1)",
       color: "white",
       border: "1px solid rgba(255,255,255,0.1)",
-      padding: "14px",
+      padding: "10px",
       borderRadius: "16px",
       cursor: "pointer",
       fontWeight: 700,
-      fontSize: "15px",
+      fontSize: "14px",
     }}
   >
     Reset
@@ -635,11 +635,11 @@ setTimeout(() => {
       justifyContent: "space-between",
       gap: "12px",
       width: "100%",
-      padding: "14px 16px",
+      padding: "10px 14px",
       borderRadius: "16px",
       border: "none",
       fontWeight: 700,
-      fontSize: "15px",
+      fontSize: "14px",
       cursor: "pointer",
       background: running
         ? "linear-gradient(90deg, #ef4444, #f87171)"
@@ -655,10 +655,11 @@ setTimeout(() => {
         textAlign: "center",
         padding: "6px 10px",
         borderRadius: "12px",
-        background: "rgba(255,255,255,0.18)",
-        border: "1px solid rgba(255,255,255,0.18)",
+        background: "rgba(255,255,255,0.85)",
+        border: "1px solid rgba(255,255,255,0.3)",
         fontSize: "13px",
         fontWeight: 700,
+        color: "#111", //Schwarz
       }}
     >
       {score} P
