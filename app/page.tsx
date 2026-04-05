@@ -991,22 +991,30 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
       24. Juni • Euskirchen
     </div>
 
-    <button
-      style={{
-        marginTop: "10px",
-        width: "100%",
-        padding: "10px",
-        borderRadius: "14px",
-        border: "none",
-        cursor: "pointer",
-        fontWeight: 700,
-        fontSize: "13px",
-        color: "white",
-        background: "linear-gradient(90deg, #f59e0b, #f97316)",
-      }}
-    >
-      Event ansehen
-    </button>
+    <a
+  href="https://event-backend.leylix.com/api/user/share-event?eventDetailsModuleType=homeClassEvent&eventId=69d046ccff337f37e0c4fbcb"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "10px",
+    width: "100%",
+    padding: "10px",
+    borderRadius: "14px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: 700,
+    fontSize: "13px",
+    color: "white",
+    background: "linear-gradient(90deg, #f59e0b, #f97316)",
+    textDecoration: "none",
+    boxSizing: "border-box",
+  }}
+>
+  Event ansehen
+</a>
   </div>
 </div>
 
