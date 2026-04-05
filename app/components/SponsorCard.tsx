@@ -90,7 +90,7 @@ export default function SponsorCard({ sponsor }: SponsorCardProps) {
               lineHeight: 1.5,
             }}
           >
-            Premium Partner Präsentation in Leylix Games.
+            Partner Präsentation Leylix Events.
           </div>
         </div>
       </div>
