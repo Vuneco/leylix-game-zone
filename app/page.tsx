@@ -621,7 +621,7 @@ setTimeout(() => {
       borderRadius: "16px",
       cursor: "pointer",
       fontWeight: 700,
-      fontSize: "10px",
+      fontSize: "14px",
     }}
   >
     Reset
@@ -639,7 +639,7 @@ setTimeout(() => {
       borderRadius: "16px",
       border: "none",
       fontWeight: 700,
-      fontSize: "10px",
+      fontSize: "14px",
       cursor: "pointer",
       background: running
         ? "linear-gradient(90deg, #ef4444, #f87171)"
