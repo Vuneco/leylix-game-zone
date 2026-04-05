@@ -173,6 +173,8 @@ useEffect(() => {
   const [moves, setMoves] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const lastCelebratedHundredRef = useRef(0);
+  const celebrationAudioRef = useRef<HTMLAudioElement | null>(null);
+  const celebrationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartRef = useRef({ x: 0, y: 0, active: false });
   
@@ -280,6 +282,16 @@ useEffect(() => {
     setGameOver(false);
     setRunning(false);
     lastCelebratedHundredRef.current = 0;
+    if (celebrationTimeoutRef.current) {
+  clearTimeout(celebrationTimeoutRef.current);
+  celebrationTimeoutRef.current = null;
+}
+
+if (celebrationAudioRef.current) {
+  celebrationAudioRef.current.pause();
+  celebrationAudioRef.current.currentTime = 0;
+  celebrationAudioRef.current = null;
+}
   }
 
   function movePiece(direction: number) {
@@ -377,16 +389,31 @@ const nextHundred = Math.floor(nextScore / 100);
 if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.current) {
   lastCelebratedHundredRef.current = nextHundred;
 
-  const audio = new Audio("/sounds/celebration.mp3");
-audio.volume = 0.25;
+  const isAlreadyPlaying =
+    celebrationAudioRef.current &&
+    !celebrationAudioRef.current.paused &&
+    !celebrationAudioRef.current.ended;
 
-audio.play().catch(() => {});
+  if (!isAlreadyPlaying) {
+    const audio = new Audio("/sounds/celebration.mp3");
+    audio.volume = 0.25;
 
-// ⬇️ NEU: nach 4 Sekunden stoppen
-setTimeout(() => {
-  audio.pause();
-  audio.currentTime = 0;
-}, 8000);
+    celebrationAudioRef.current = audio;
+
+    audio.play().catch(() => {});
+
+    if (celebrationTimeoutRef.current) {
+      clearTimeout(celebrationTimeoutRef.current);
+    }
+
+    celebrationTimeoutRef.current = setTimeout(() => {
+      if (celebrationAudioRef.current) {
+        celebrationAudioRef.current.pause();
+        celebrationAudioRef.current.currentTime = 0;
+        celebrationAudioRef.current = null;
+      }
+    }, 8000);
+  }
 }
     setLines(nextLines);
     setLevel(nextLevel);
@@ -763,7 +790,7 @@ setTimeout(() => {
                 {gameOver && (
   <div
     style={{
-      position: "absolute",
+      position: "fixed",
       inset: 0,
       background: "rgba(3, 8, 20, 0.72)",
       backdropFilter: "blur(10px)",
@@ -771,7 +798,7 @@ setTimeout(() => {
       alignItems: "center",
       justifyContent: "center",
       padding: "20px",
-      zIndex: 20,
+      zIndex: 9999,
       animation: "fadeInOverlay 0.25s ease",
     }}
   >
