@@ -168,6 +168,7 @@ useEffect(() => {
   const [level, setLevel] = useState(1);
   const [lines, setLines] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [wallpaper, setWallpaper] = useState(WALLPAPERS[0].key);
   const [sessions, setSessions] = useState(0);
   const [moves, setMoves] = useState(0);
@@ -280,6 +281,7 @@ useEffect(() => {
     setLines(0);
     setMoves(0);
     setGameOver(false);
+    setShowGameOverModal(false);
     setRunning(false);
     lastCelebratedHundredRef.current = 0;
     if (celebrationTimeoutRef.current) {
@@ -293,6 +295,18 @@ if (celebrationAudioRef.current) {
   celebrationAudioRef.current = null;
 }
   }
+
+  function restartGameNow() {
+  resetGame();
+  setTimeout(() => {
+    setRunning(true);
+    setSessions((s) => s + 1);
+  }, 0);
+}
+
+function closeGameOverModal() {
+  setShowGameOverModal(false);
+}
 
   function movePiece(direction: number) {
   if (!running) return;
@@ -422,9 +436,10 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
     setNextPiece(randomPiece());
 
     if (collides(clearedBoard, spawned)) {
-      setGameOver(true);
-      setRunning(false);
-    }
+  setGameOver(true);
+  setShowGameOverModal(true);
+  setRunning(false);
+}
   }
 
   function onTouchStart(event: React.TouchEvent<HTMLDivElement>) {
@@ -787,134 +802,9 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
                   <Tag text="Sponsor Ready" />
                   <Tag text="Analytics Ready" />
                 </div>
-                {gameOver && (
-  <div
-    style={{
-      position: "fixed",
-      inset: 0,
-      background: "rgba(3, 8, 20, 0.72)",
-      backdropFilter: "blur(10px)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "20px",
-      zIndex: 9999,
-      animation: "fadeInOverlay 0.25s ease",
-    }}
-  >
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "360px",
-        borderRadius: "28px",
-        padding: "24px",
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05))",
-        border: "1px solid rgba(255,255,255,0.10)",
-        boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
-        textAlign: "center",
-        animation: "popInCard 0.28s ease",
-      }}
-    >
-      <div
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "8px 14px",
-          borderRadius: "999px",
-          background: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          fontSize: "12px",
-          fontWeight: 700,
-          marginBottom: "14px",
-        }}
-      >
-        Leylix Games
-      </div>
+                             
 
-      <div
-        style={{
-          fontSize: "28px",
-          fontWeight: 800,
-          lineHeight: 1.1,
-          color: "white",
-        }}
-      >
-        Game Over
-      </div>
-
-      <div
-        style={{
-          marginTop: "10px",
-          color: "rgba(255,255,255,0.75)",
-          fontSize: "14px",
-          lineHeight: 1.6,
-        }}
-      >
-        Keine weiteren Elemente mehr möglich. Starte eine neue Runde und versuche einen noch höheren Score zu holen.
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "10px",
-          marginTop: "18px",
-          textAlign: "left",
-        }}
-      >
-        <div
-          style={{
-            borderRadius: "18px",
-            background: "rgba(0,0,0,0.18)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            padding: "12px",
-          }}
-        >
-          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Score</div>
-          <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{score}</div>
-        </div>
-
-        <div
-          style={{
-            borderRadius: "18px",
-            background: "rgba(0,0,0,0.18)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            padding: "12px",
-          }}
-        >
-          <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Best</div>
-          <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{bestScore}</div>
-        </div>
-      </div>
-
-      <button
-        onClick={resetGame}
-        style={{
-          marginTop: "18px",
-          width: "100%",
-          padding: "14px",
-          borderRadius: "18px",
-          border: "none",
-          cursor: "pointer",
-          fontWeight: 800,
-          fontSize: "15px",
-          color: "white",
-          background: "linear-gradient(90deg, #7c3aed, #9333ea)",
-          boxShadow: "0 12px 30px rgba(124,58,237,0.28)",
-        }}
-      >
-        Neustart
-      </button>
-    </div>
-  </div>
-)}             
-
-              </div>
-              
-
-              
+              </div>                            
             </div>
           </div>
         </section>
@@ -951,6 +841,156 @@ if (nextHundred > previousHundred && nextHundred > lastCelebratedHundredRef.curr
           </div>
         </aside>
       </div>
+
+      {showGameOverModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(3, 8, 20, 0.74)",
+            backdropFilter: "blur(10px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            zIndex: 9999,
+            animation: "fadeInOverlay 0.25s ease",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "380px",
+              borderRadius: "28px",
+              padding: "24px",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05))",
+              border: "1px solid rgba(255,255,255,0.10)",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.35)",
+              textAlign: "center",
+              animation: "popInCard 0.28s ease",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "8px 14px",
+                borderRadius: "999px",
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                fontSize: "12px",
+                fontWeight: 700,
+                marginBottom: "14px",
+              }}
+            >
+              Leylix Games
+            </div>
+
+            <div
+              style={{
+                fontSize: "28px",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                color: "white",
+              }}
+            >
+              Game Over
+            </div>
+
+            <div
+              style={{
+                marginTop: "10px",
+                color: "rgba(255,255,255,0.75)",
+                fontSize: "14px",
+                lineHeight: 1.6,
+              }}
+            >
+              Keine weiteren Elemente mehr möglich. Möchtest du direkt neu starten oder später weitermachen?
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "10px",
+                marginTop: "18px",
+                textAlign: "left",
+              }}
+            >
+              <div
+                style={{
+                  borderRadius: "18px",
+                  background: "rgba(0,0,0,0.18)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  padding: "12px",
+                }}
+              >
+                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Score</div>
+                <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{score}</div>
+              </div>
+
+              <div
+                style={{
+                  borderRadius: "18px",
+                  background: "rgba(0,0,0,0.18)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  padding: "12px",
+                }}
+              >
+                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)" }}>Best</div>
+                <div style={{ fontSize: "20px", fontWeight: 800, marginTop: "4px" }}>{bestScore}</div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "10px",
+                marginTop: "18px",
+              }}
+            >
+              <button
+                onClick={closeGameOverModal}
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  borderRadius: "18px",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  cursor: "pointer",
+                  fontWeight: 800,
+                  fontSize: "15px",
+                  color: "white",
+                  background: "rgba(255,255,255,0.08)",
+                }}
+              >
+                Später
+              </button>
+
+              <button
+                onClick={restartGameNow}
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  borderRadius: "18px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontWeight: 800,
+                  fontSize: "15px",
+                  color: "white",
+                  background: "linear-gradient(90deg, #7c3aed, #9333ea)",
+                  boxShadow: "0 12px 30px rgba(124,58,237,0.28)",
+                }}
+              >
+                Neustart
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
